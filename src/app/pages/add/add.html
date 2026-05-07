@@ -1,0 +1,38 @@
+<div class="card-container">
+  <mat-card appearance="outlined" class="card">
+    <mat-card-header>
+      <mat-card-title class="card-title">{{ id ? 'Update' : 'Add New' }} Report</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Report Title</mat-label>
+          <input matInput formControlName="title" placeholder="Enter title" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Report Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="reportDatePicker"
+            formControlName="date"
+            placeholder="select date" />
+          <mat-datepicker-toggle matSuffix [for]="reportDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #reportDatePicker></mat-datepicker
+        ></mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category" placeholder="select category">
+            <mat-option value="Security">Security</mat-option>
+            <mat-option value="Safety">Safety</mat-option>
+            <mat-option value="Property">Property</mat-option>
+            <mat-option value="Others">Others</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-card-actions class="action-buttons">
+          <button mat-raised-button type="button" routerLink="/reports">Back</button>
+          <button mat-raised-button type="submit">{{ id ? 'Update' : 'Submit' }}</button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

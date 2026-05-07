@@ -1,0 +1,38 @@
+<div class="form-container">
+  <div class="calculator-form">
+    <label for="num1">First Number</label>
+    <input type="text" [(ngModel)]="num1" placeholder="Enter first number" value="" />
+
+    <label for="num2">Second Number</label>
+    <input type="text" [(ngModel)]="num2" placeholder="Enter second number" value="" />
+    <div class="button-group">
+      <button class="save-btn" (click)="btnCalculate('+')">
+        <i class="fa-solid fa-add"> </i>
+        Add
+      </button>
+      <button class="save-btn" (click)="btnCalculate('-')">
+        <i class="fa-solid fa-minus"> </i>
+        Subtract
+      </button>
+      <button class="save-btn" (click)="btnCalculate('*')">
+        <i class="fa-solid fa-multiply"> </i>
+        Multiply
+      </button>
+      <button class="save-btn" (click)="btnCalculate('/')">
+        <i class="fa-solid fa-divide"> </i>
+        Divide
+      </button>
+    </div>
+    <div class="result-text">
+      Result: {{ result }}
+      <br />
+      @if (result.toString() == 'NaN') {
+        <div class="error">Please ensure that the numbers are divisible.</div>
+      } @else {
+        <div [ngClass]="result <= 10 ? 'error' : 'good-result'">
+          The number is {{ result <= 10 ? 'less' : 'more' }} than 10
+        </div>
+      }
+    </div>
+  </div>
+</div>

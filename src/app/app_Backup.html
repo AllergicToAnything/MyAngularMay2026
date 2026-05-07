@@ -1,0 +1,52 @@
+<main class="main">
+  <div class="header">
+    <h1>Hello {{ name }}!!</h1>
+    <input type="text" [(ngModel)]="inputText" placeholder=" Enter your name here..." value="" />
+    <br /><br />
+    <button (click)="btnClick()">Update Name</button>
+  </div>
+  <div class="form-container">
+    <form class="calculator-form">
+      <label for="num1">First Number</label>
+      <input
+        type="number"
+        placeholder="Enter first number"
+        [(ngModel)]="inputCalA"
+        name="inputCalA"
+        value=""
+      />
+      <div>
+        <select [(ngModel)]="selectedOperator" name="selectedOperator">
+          <option *ngFor="let op of operators" [value]="op.value">
+            {{ op.value }}
+          </option>
+        </select>
+      </div>
+      <label for="num2">Second Number</label>
+      <input
+        type="number"
+        placeholder="Enter second number"
+        [(ngModel)]="inputCalB"
+        name="inputCalB"
+        value=""
+      />
+      <div class="button-group">
+        <button class="save-btn">
+          <i class="fa-solid fa-minus"> </i>
+          Addition
+        </button>
+        <button class="save-btn" (click)="calculateAB(inputCalA, inputCalB)">
+          <i class="fa-solid fa-minus"> </i>
+          Result
+        </button>
+        <button class="save-btn">
+          <i class="fa-solid fa-minus"> </i>
+          Substraction
+        </button>
+      </div>
+      <div class="result-text">Result: {{ calculatorResult }}</div>
+    </form>
+  </div>
+
+  <router-outlet />
+</main>

@@ -1,0 +1,7 @@
+<mat-toolbar>
+  <div class="title">Menu</div>
+  <span class="spacer"></span>
+  @for (item of menuItems; track $index) {
+    <a (click)="navigatePage(item)" mat-button class="icon">{{ item.title }}</a>
+  }
+</mat-toolbar>

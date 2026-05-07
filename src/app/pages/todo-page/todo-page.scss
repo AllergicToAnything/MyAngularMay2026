@@ -1,0 +1,68 @@
+.todo-body {
+  margin: 30px;
+
+  display: flex;
+  justify-content: center;
+
+  .todo-container {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        width: 100px;
+        height: 40px;
+        font-size: 15px;
+        color: white;
+        background-color: #006dff;
+        border-radius: 10px;
+      }
+
+      .header-text {
+        margin-top: auto;
+        margin-bottom: auto;
+        font-size: 20px;
+      }
+    }
+
+    .list-container {
+      .strike {
+        text-decoration: line-through;
+        opacity: 0.6;
+      }
+
+      .todo-item {
+        width: 100%;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+
+        .btn {
+          display: flex;
+          justify-content: right;
+          align-items: end;
+          margin-left: auto;
+        }
+        .delete {
+          margin-left: auto;
+          width: 32px;
+          height: 32px;
+          border-radius: 10px;
+          display: flex;
+
+          mat-icon {
+            margin: auto;
+            width: 30px;
+            height: 30px;
+            font-size: 30px;
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}

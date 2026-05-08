@@ -1,60 +1,119 @@
-<div class="login-container">
-  <mat-card class="login-card">
-    <!-- Header -->
+<div class="card-container">
+  <mat-card appearance="outlined" class="card">
     <mat-card-header>
-      <mat-card-title class="login-title"> Login </mat-card-title>
-      <mat-card-subtitle> Please sign in to continue </mat-card-subtitle>
+      <mat-card-title>{{ showRegisterForm ? 'Register' : 'Sign In' }}</mat-card-title>
     </mat-card-header>
+    @if (!showRegisterForm) {
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Enter your email" />
+            @if (
+              (loginForm.controls['email'].hasError('required') ||
+                loginForm.controls['email'].hasError('email')) &&
+              loginForm.controls['email'].touched
+            ) {
+              <mat-error>Please enter valid email</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              matInput
+              formControlName="password"
+              placeholder="Enter your password"
+            />
+            <button mat-icon-button matSuffix (click)="onShowPassword()" type="button">
+              <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
 
-    <!-- Content -->
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label> Email </mat-label>
-          <input matInput type="email" formControlName="email" placeholder="Enter your email" />
-          @if (loginForm.get('email')?.hasError('required')) {
-            <mat-error> Email is required </mat-error>
-          }
-          @if (loginForm.get('email')?.hasError('email')) {
-            <mat-error> Please enter a valid email address </mat-error>
-          }
-        </mat-form-field>
+            @if (
+              loginForm.controls['password'].hasError('required') &&
+              loginForm.controls['password'].touched
+            ) {
+              <mat-error>Please enter your password</mat-error>
+            }
+          </mat-form-field>
+          <mat-card-actions align="end">
+            <button mat-raised-button type="submit" [disabled]="!loginForm.valid">Submit</button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    } @else {
+      <mat-card-content>
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter your full name" />
+            @if (
+              signupForm.controls['name'].hasError('required') &&
+              signupForm.controls['name'].touched
+            ) {
+              <mat-error>Please enter your name</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Phone number</mat-label>
+            <input matInput formControlName="phone" placeholder="Enter your phone number" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Enter your email" />
+            @if (
+              (signupForm.controls['email'].hasError('required') ||
+                signupForm.controls['email'].hasError('email')) &&
+              signupForm.controls['email'].touched
+            ) {
+              <mat-error>Please enter valid email</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              matInput
+              formControlName="password"
+              placeholder="Enter your password"
+            />
+            <button mat-icon-button matSuffix (click)="onShowPassword()" type="button">
+              <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label> Password </mat-label>
-          <input
-            matInput
-            [type]="showPassword ? 'text' : 'password'"
-            formControlName="password"
-            placeholder="Enter your password"
-          />
-          <!-- matSuffix means it will show at the end (right side) -->
-          <button mat-icon-button matSuffix (click)="onShowPassword()" type="button">
-            <mat-icon> {{ showPassword ? 'visibility_off' : 'visibility' }} </mat-icon>
-          </button>
-          @if (loginForm.get('password')?.hasError('required')) {
-            <mat-error> Password is required </mat-error>
-          }
-          @if (loginForm.get('password')?.hasError('minlength')) {
-            <mat-error> Password must be at least 6 characters long </mat-error>
-          }
-        </mat-form-field>
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          class="login-button"
-          [disabled]="loginForm.invalid"
-        >
-          Sign In
-        </button>
-      </form>
-    </mat-card-content>
-
-    <!-- Actions -->
-    <mat-card-actions class="login-actions">
-      <a href="#" class="forgot-password"> Forgot Password? </a>
-      <a href="#" class="forgot-password"> Don't have an account? </a>
-    </mat-card-actions>
+            @if (
+              signupForm.controls['password'].hasError('required') &&
+              signupForm.controls['password'].touched
+            ) {
+              <mat-error>Please enter your password</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              [type]="showPassword2 ? 'text' : 'password'"
+              matInput
+              formControlName="confirm_password"
+              placeholder="Enter your password"
+            />
+            <button mat-icon-button matSuffix (click)="onShowPassword2()" type="button">
+              <mat-icon>{{ showPassword2 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (
+              signupForm.controls['confirm_password'].hasError('required') &&
+              signupForm.controls['confirm_password'].touched
+            ) {
+              <mat-error>Please enter your password</mat-error>
+            }
+          </mat-form-field>
+          <mat-card-actions align="end">
+            <button mat-raised-button type="submit" [disabled]="!signupForm.valid">Submit</button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    }
+    <button mat-button class="register-button" (click)="onShowRegisterForm()">
+      {{ showRegisterForm ? 'Back to Sign In' : 'Create account' }}
+    </button>
   </mat-card>
 </div>

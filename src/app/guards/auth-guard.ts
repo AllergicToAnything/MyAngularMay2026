@@ -9,7 +9,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const uiService = inject(Ui);
 
   let token = dataService.loadStorage('TOKEN');
-  console.log(token);
+  // console.log(token);
   if (token) return true;
   router.navigateByUrl('/login');
   uiService.openSnackBar('Please login to access this page');

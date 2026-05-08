@@ -15,7 +15,9 @@ import { Ui } from '../../services/ui';
 export class Add implements OnInit {
   public reportForm: FormGroup;
   public id: any;
-  selectedFile: File | null = null;
+  public selectedFile: any | null = null;
+  public imageUrl: string | null = null;
+
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
 
   constructor(
@@ -34,7 +36,20 @@ export class Add implements OnInit {
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    if (file) this.selectedFile = file;
+    if (file) {
+      this.selectedFile = file;
+      if (this.imageUrl) {
+        URL.revokeObjectURL(this.imageUrl);
+      }
+      this.imageUrl = URL.createObjectURL(file);
+    }
+  }
+
+  //Destroy when exit
+  ngOndestroy() {
+    if (this.imageUrl) {
+      URL.revokeObjectURL(this.imageUrl);
+    }
   }
 
   async ngOnInit() {
@@ -49,6 +64,13 @@ export class Add implements OnInit {
             category: report.category,
             date: this.parseApiDate(report.date),
           });
+          console.log(report.id + report.image_path);
+          this.imageUrl = this.apiService.baseURL + report.image_path;
+          let file_name = report.image_path.split('/')[2];
+
+          this.selectedFile['name'] = file_name;
+
+          console.log('IMAGE URL =' + this.imageUrl);
         }
       } catch (error) {
         console.error(error);

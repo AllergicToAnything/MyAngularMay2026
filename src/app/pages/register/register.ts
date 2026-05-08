@@ -8,12 +8,12 @@ import { Ui } from '../../services/ui';
 import { Data } from '../../services/data';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   imports: [...SharedModules],
-  templateUrl: './login.html',
-  styleUrl: './login.scss',
+  templateUrl: './register.html',
+  styleUrl: './register.scss',
 })
-export class Login {
+export class Register {
   loginForm!: FormGroup;
   showPassword: boolean = false;
 

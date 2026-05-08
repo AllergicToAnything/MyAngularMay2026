@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Ui } from './ui';
+import { Data } from './data';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ export class Api {
   constructor(
     private http: HttpClient,
     private ui: Ui,
+    private dataService: Data,
   ) {}
 
   httpGet(path: string) {
@@ -38,8 +40,8 @@ export class Api {
   httpPost(path: string, payload: any, method?: string) {
     let fullURL: string = this.baseURL + path;
     let headers = { headers: new HttpHeaders() };
-    let token: string =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoiaHVtYW5AbWFpbC5jb20iLCJpYXQiOjE3NzgyMDMxMzYsImV4cCI6MTc3ODIwNjczNn0.CT1dslPdMLQkuMcatp1BT2Tt-p1PBzc8EnD581CBHUU';
+    let token: string = this.dataService.loadStorage('TOKEN');
+    let user: any = this.dataService.loadStorage('USER');
     payload = { ...payload, user_id: 1 };
 
     if (token) {
@@ -76,7 +78,7 @@ export class Api {
             resolve(response);
           },
           error: (error: any) => {
-            this.handleAuthError(error);
+            // this.handleAuthError(error);
             reject(error);
           },
         });

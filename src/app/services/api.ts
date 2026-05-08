@@ -39,7 +39,7 @@ export class Api {
     let fullURL: string = this.baseURL + path;
     let headers = { headers: new HttpHeaders() };
     let token: string =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoiaHVtYW5AbWFpbC5jb20iLCJpYXQiOjE3NzgxNjk1MTcsImV4cCI6MTc3ODE3MzExN30.C_K26GFWHTo1fzcYdKqViEUtU_a_JOZl5v-n0-Foufs';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoiaHVtYW5AbWFpbC5jb20iLCJpYXQiOjE3NzgyMDMxMzYsImV4cCI6MTc3ODIwNjczNn0.CT1dslPdMLQkuMcatp1BT2Tt-p1PBzc8EnD581CBHUU';
     payload = { ...payload, user_id: 1 };
 
     if (token) {

@@ -4,6 +4,7 @@ import { CalculatorPage } from './pages/calculator-page/calculator-page';
 import { TodoPage } from './pages/todo-page/todo-page';
 import { Reports } from './pages/reports/reports';
 import { Add } from './pages/add/add';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
   {
@@ -34,5 +35,9 @@ export const routes: Routes = [
   {
     path: 'update/:id',
     component: Add,
+  },
+  {
+    path: 'login',
+    component: Login,
   },
 ];

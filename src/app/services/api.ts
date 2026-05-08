@@ -40,15 +40,28 @@ export class Api {
   httpPost(path: string, payload: any, method?: string) {
     let fullURL: string = this.baseURL + path;
     let headers = { headers: new HttpHeaders() };
-    let token: string = this.dataService.loadStorage('TOKEN');
-    let user: any = this.dataService.loadStorage('USER');
-    payload = { ...payload, user_id: 1 };
 
+    let token: string = this.dataService.loadStorage('TOKEN');
+    //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoiaHVtYW5AbWFpbC5jb20iLCJpYXQiOjE3NzgyMTE5NjUsImV4cCI6MTc3ODIxNTU2NX0.RKxgh9m6XTf-PDziPcUs1xOpGVQtoPhLLy_1koBaaUs';
+    let user: any = this.dataService.loadStorage('USER');
+    //'11';
+
+    console.log('CURRENT TOKEN =' + token);
+    console.log('CURRENT USER =' + user);
+    let isFormData = payload instanceof FormData;
+
+    if (user) {
+      if (isFormData) {
+        payload.append('user_id', user.id);
+      } else {
+        payload = { ...payload, user_id: user.id };
+      }
+    }
     if (token) {
       headers = {
         headers: new HttpHeaders({
           Authorization: `Bearer ${token}`,
-        }).set('Content-Type', 'application/json'),
+        }),
       };
     }
     return new Promise((resolve, reject) => {
@@ -76,10 +89,11 @@ export class Api {
         this.http.post(fullURL, payload, headers).subscribe({
           next: (response: any) => {
             resolve(response);
+            console.log(response);
           },
           error: (error: any) => {
-            // this.handleAuthError(error);
             reject(error);
+            console.log(error);
           },
         });
       }

@@ -28,6 +28,12 @@
             <mat-option value="Others">Others</mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-label>Image</mat-label>
+        <input matInput readonly [value]="selectedFile ? selectedFile.name:''" placeholder="Select image" />
+        <button mat-icon-button matSuffix type="button" (click)="fileInput.click()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+        <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" style="display:none">
         <mat-card-actions class="action-buttons">
           <button mat-raised-button type="button" routerLink="/reports">Back</button>
           <button mat-raised-button type="submit">{{ id ? 'Update' : 'Submit' }}</button>

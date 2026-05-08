@@ -37,7 +37,7 @@ export class Login {
   async onSubmit() {
     const loginData = this.loginForm.value;
     try {
-      const response: any = this.apiService.httpPost('/auth/login', loginData);
+      const response: any = await this.apiService.httpPost('/auth/login', loginData);
       if (response.success) {
         let token = response.token;
         let user = response.user;

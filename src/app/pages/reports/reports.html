@@ -1,24 +1,52 @@
-<div class="button-container">
-  <button mat-raised-button routerLink="/add">Add Report</button>
+<div class="div-container">
+  <mat-form-field appearance="outline" class="category-filter">
+    <mat-label>Filter by Category</mat-label>
+    <mat-select [value]="categoryFilter" (selectionChange)="applyCategoryFilter($event.value)">
+      <mat-option value="">All</mat-option>
+      <mat-option *ngFor="let category of categoryOptions" [value]="category.toLowerCase()">
+        {{ category }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="button-container">
+    <button mat-raised-button routerLink="/add">Add Report</button>
+    <button mat-raised-button (click)="onLogout()">Logout</button>
+  </div>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" matSort matSortDisableClear class="mat-elevation-z8">
   <ng-container matColumnDef="no">
-    <th mat-header-cell *matHeaderCellDef>No</th>
-    <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="no" start="asc">
+      <span class="sort-pill">No</span>
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.no }}</td>
   </ng-container>
+
   <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef>Title</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="title" start="asc">
+      <span class="sort-pill">Title</span>
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.title }}</td>
   </ng-container>
+
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="category" start="asc">
+      <span class="sort-pill"> Category </span>
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+  </ng-container>
+
   <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef>Date</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="date" start="desc">
+      <span class="sort-pill">Date</span>
+    </th>
     <td mat-cell *matCellDef="let element">{{ element.date }}</td>
   </ng-container>
+
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element" class="action-buttons">
-      <button mat-icon-button routerLink="/update/{{ element.id }}">
+      <button mat-icon-button [routerLink]="['/update', element.id]">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button (click)="deleteReport(element.id)">
@@ -26,6 +54,7 @@
       </button>
     </td>
   </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

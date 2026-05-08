@@ -52,7 +52,7 @@ export class Reports implements OnInit {
           this.ngOnInit(); // Refresh the list
         }
       } catch (error) {
-        this.uiServices.openSnackBar('Failed to delete report', 'OK');
+        this.uiServices.openSnackBar('Failed to delete report.', 'OK');
         console.error(error);
       }
     }

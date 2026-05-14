@@ -7,7 +7,7 @@ import { Data } from './data';
   providedIn: 'root',
 })
 export class Api {
-  public baseURL: string = 'https://myexpressapr2026zen.up.railway.app';
+  public baseURL: string = 'https://myexpressapr2026zen.up.railway.app/api';
   // public baseURL: string = 'http://localhost:3000/api';
   constructor(
     private http: HttpClient,
